@@ -3,11 +3,11 @@
 # Site settings
 title: My Love Website
 description: You know where is there? It is magic island! enjoy your days!
-baseurl: ""  # The base URL of your site (leave empty for GitHub Pages)
+baseurl: "https://github.com/What3ver7/rep"  # The base URL of your site (leave empty for GitHub Pages)
 url: "https://github.com/What3ver7/rep"  # Replace 'username' with your GitHub username
 
 # Theme settings (you can choose from many pre-built themes in Jekyll)
-theme: "minima"  # "minima" is a simple theme, you can choose another if you prefer
+theme: "midnight"  # "minima" is a simple theme, you can choose another if you prefer
 
 # Social links (you can add links to your social profiles)
 social_links:
