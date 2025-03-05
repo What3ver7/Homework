@@ -7,7 +7,7 @@ baseurl: ""  # The base URL of your site (leave empty for GitHub Pages)
 url: "https://github.com/What3ver7/rep"  # Replace 'username' with your GitHub username
 
 # Theme settings (you can choose from many pre-built themes in Jekyll)
-remote_theme: pages-themes/time-machine@v0.2.0
+remote_theme: pages-themes/midnight@v0.2.0
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 
