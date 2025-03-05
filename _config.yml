@@ -1,1 +1,20 @@
-theme: jekyII-theme-hacker
+# _config.yml
+
+# Site settings
+title: My Jekyll Website
+description: This is a description of my awesome Jekyll-powered site
+baseurl: ""  # The base URL of your site (leave empty for GitHub Pages)
+url: "https://What3ver7.github.io/rep"  # Replace 'username' with your GitHub username
+
+# Theme settings (you can choose from many pre-built themes in Jekyll)
+theme: "hacker"  # "minima" is a simple theme, you can choose another if you prefer
+
+# Social links (you can add links to your social profiles)
+social_links:
+  - name: "What3ver"
+    url: "https://twitter.com/What3ver7"
+  - name: "GitHub"
+    url: "https://github.com/What3ver7"
+
+# Other settings (you can add more as needed)
+markdown: kramdown  # The Markdown processor to use
