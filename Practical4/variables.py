@@ -12,5 +12,8 @@ X=True
 Y=False
 W=X and Y
 print("W:",W)
-#  X  |   Y   |  W=X and Y
-# True| False |   False
+#  X  |   Y   |  W=X and Y | X or Y
+# True| False |   False    | True   
+# True| True  |   True     | True
+# False|True  |   False    | True
+# False|False |   False    | False
