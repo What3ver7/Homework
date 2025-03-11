@@ -15,7 +15,7 @@
 #    ELSE
 #        PRINT "You are normal weight"
 
-x=input("Please, give me your weight(kg) and height(m): ").split(",")
+x=input("Please, give me your weight(kg) and height(m),please separate them use comma: ").split(",")
 weight=float(x[0])
 height=float(x[1])
 bmi=weight/height**2
