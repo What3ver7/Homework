@@ -1,24 +1,21 @@
 # BEGIN
-#    PRINT "Please, give me your weight(kg) and height(m): "
-#    READ input_string
-#    SPLIT input_string BY "," INTO weight_string AND height_string
+#    PRINT "Enter your weight (kg) and height (m), separated by a comma: "
+#    READ input
+#    SPLIT input by "," into weight and height
 
-#    SET weight TO FLOAT(weight_string)
-#    SET height TO FLOAT(height_string)
-
-#    SET bmi TO weight / (height ^ 2)
+#    SET bmi TO FLOAT(weight) / (FLOAT(height) * FLOAT(height))
 
 #    IF bmi > 30 THEN
-#        PRINT "Sorry, you are obese"
+#        PRINT "Obese"
 #    ELSE IF bmi < 18.5 THEN
-#        PRINT "You are underweight"
+#        PRINT "Underweight"
 #    ELSE
-#        PRINT "You are normal weight"
+#        PRINT "Normal weight"
 
 x=input("Please, give me your weight(kg) and height(m),please separate them use comma: ").split(",")
 weight=float(x[0])
 height=float(x[1])
-bmi=weight/height**2
+bmi=weight/height**2  #SET bmi TO FLOAT(weight)/(FLOAT(height)*FLOAT(height))
 if bmi>30:
     print(f"Your BMI is {bmi}, your are obese,sorry :(")
 elif bmi<18.5:
