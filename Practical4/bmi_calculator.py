@@ -20,8 +20,8 @@ weight=float(x[0])
 height=float(x[1])
 bmi=weight/height**2
 if bmi>30:
-    print("Sorry,you are obese")
+    print(f"Your BMI is {bmi}, your are obese,sorry :(")
 elif bmi<18.5:
-    print("you are underweight")
+    print(f"Your BMI is {bmi},you are underweight,sorry :(")
 else:
-    print("You are normal weight")
+    print(f"Your BMI is {bmi},You are normal weight :)")
