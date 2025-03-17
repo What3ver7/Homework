@@ -45,6 +45,7 @@ codon_table = {
 }
 def amino_acid():
     global coding_region
+    global acid
     all_acids=[]
     if not coding_region:
         return "No coding region found"
@@ -54,12 +55,30 @@ def amino_acid():
         acids=codon_table[mRNA2]
         all_acids.append(acids)
     acid=Counter(all_acids)
-    max_acid=max(acid,key=acid.get)
+    max_count=max(acid.values())
+    max_acid=[acid_name for acid_name,count in acid.items() if count==max_count]
     return max_acid
 
-    
 x=find_sequence()
 y=amino_acid()
 result="".join(x)
 print(f"The mRNA sequence is {result}")
 print(f"Most frequency amino acid is {y}")    
+
+import matplotlib.pyplot as plt
+x=list(acid.keys())
+y=[int(value) for value in acid.values()]
+plt.bar(x,y)
+plt.xlabel("Amino acid name")
+plt.ylabel("Times")
+for i,value in enumerate(y):
+    plt.text(i, value, f"{value}",ha="center", va="bottom")
+plt.title("Amino acid frequencies")
+plt.show()
+
+"""
+u=list(acid.keys())
+v=list(acid.values())
+plt.pie(v,labels=u,autopct="%1.2f%%")
+plt.title("Amino acid frequencies")
+plt.show()"""
