@@ -46,6 +46,7 @@ codon_table = {
 def amino_acid():
     global coding_region
     global acid
+    global all_acids
     all_acids=[]
     if not coding_region:
         return "No coding region found"
@@ -54,7 +55,13 @@ def amino_acid():
         mRNA2="".join(mRNA1)
         acids=codon_table[mRNA2]
         all_acids.append(acids)
-    acid=Counter(all_acids)
+    def counter():
+        global all_acids
+        acid_dict={}
+        for i in all_acids:
+            acid_dict[i]=acid_dict.get(i,0)+1
+        return acid_dict
+    acid=counter()
     max_count=max(acid.values())
     max_acid=[acid_name for acid_name,count in acid.items() if count==max_count]
     return max_acid
