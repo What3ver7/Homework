@@ -2,6 +2,7 @@ sequence=input("Give me mRNA sequence, thanks :) ").upper()
 sequence_list=list(sequence)
 
 def find_sequence():
+    global remaining_sequence
     coding_region=[]
     start_code=False
     start_position=-1
@@ -72,6 +73,18 @@ def max_amino_acid(coding_region):
     return acid,max_acid
 #Find the max fruquent amino acid
 
+def reverse(b):
+    b=b.replace("U","T")
+    return b
+
+def calculator():
+    A_count=remaining_sequence.count("A")
+    U_count=remaining_sequence.count("U")
+    C_count=remaining_sequence.count("C")
+    G_count=remaining_sequence.count("G")
+    per=((A_count+U_count)/(C_count+G_count))
+    print(f"The percentage of C and G is {per}")
+
 x=find_sequence()
 y=max_amino_acid(x)
 acid=y[0]
@@ -102,3 +115,8 @@ plt.title("Amino acid frequencies")
 plt.show()
 #draw a pie
 """
+
+DNA_sequence=reverse(remaining_sequence)
+print(f"The DNA sequence is {DNA_sequence}")
+
+calculator()
