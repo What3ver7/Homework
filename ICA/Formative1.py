@@ -11,6 +11,7 @@ def find_sequence():
             start_position=i
             start_code=True
             break
+        #Find start code first
     if start_code:
         remaining_sequence=sequence[start_position:]
         j=0
@@ -23,12 +24,13 @@ def find_sequence():
                     coding_region.append(v)
                 break
             j += 3
+        #if it has end code, cut it until end code, and append it
     if len(remaining_sequence) - j == 1 or len(remaining_sequence) - j == 2:
         remaining_sequence = remaining_sequence[:j]
     for v in remaining_sequence:
         coding_region.append(v)
+    #if there is noend code and has 1 or 2 more useless code, cut it and append the remain
     return coding_region
-
 
 codon_table = {
     'UUU': 'Phe', 'UUC': 'Phe', 'UUA': 'Leu', 'UUG': 'Leu',
@@ -53,6 +55,7 @@ def counter(m):
         for i in m:
             acid_dict[i]=acid_dict.get(i,0)+1
         return acid_dict
+# def a counter function to counter the frequency of acid
 
 def max_amino_acid(coding_region):
     all_acids=[]
@@ -67,6 +70,7 @@ def max_amino_acid(coding_region):
     max_count=max(acid.values())
     max_acid=[acid_name for acid_name,count in acid.items() if count==max_count]
     return acid,max_acid
+#Find the max fruquent amino acid
 
 x=find_sequence()
 y=max_amino_acid(x)
@@ -75,7 +79,7 @@ max=y[1]
 result="".join(x)
 print(f"The mRNA sequence is {result}")
 print(f"Most frequency amino acid is {max}")
-
+# main part
 
 import matplotlib.pyplot as plt
 x=list(acid.keys())
@@ -87,6 +91,7 @@ for i,value in enumerate(y):
     plt.text(i, value, f"{value}",ha="center", va="bottom")
 plt.title("Amino acid frequencies")
 plt.show()
+#draw a bar 
 
 """
 import matplotlib.pyplot as plt
@@ -95,4 +100,5 @@ v=list(acid.values())
 plt.pie(v,labels=u,autopct="%1.2f%%")
 plt.title("Amino acid frequencies")
 plt.show()
+#draw a pie
 """
