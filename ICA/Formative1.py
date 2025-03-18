@@ -1,8 +1,7 @@
-sequence=input("Give me mRNA sequence, thanks :) ")
+sequence=input("Give me mRNA sequence, thanks :) ").upper()
 sequence_list=list(sequence)
 
 def find_sequence():
-    global coding_region
     coding_region=[]
     start_code=False
     start_position=-1
@@ -15,16 +14,22 @@ def find_sequence():
     if start_code:
         remaining_sequence=sequence[start_position:]
         j=0
-        while j<len(remaining_sequence)-2:
-            end_code=remaining_sequence[j:j+3]
-            if end_code in ["UAA","UAG","UGA"]:
+        while j < len(remaining_sequence) - 2:
+            if j + 3 > len(remaining_sequence):
+                break
+            end_code = remaining_sequence[j:j+3]
+            if end_code in ["UAA", "UAG", "UGA"]:
                 for v in remaining_sequence[:j]:
                     coding_region.append(v)
                 break
-            j+=3
+            j += 3
+    if len(remaining_sequence) - j == 1 or len(remaining_sequence) - j == 2:
+        remaining_sequence = remaining_sequence[:j]
+    for v in remaining_sequence:
+        coding_region.append(v)
     return coding_region
 
-from collections import Counter
+
 codon_table = {
     'UUU': 'Phe', 'UUC': 'Phe', 'UUA': 'Leu', 'UUG': 'Leu',
     'UCU': 'Ser', 'UCC': 'Ser', 'UCA': 'Ser', 'UCG': 'Ser',
@@ -43,34 +48,34 @@ codon_table = {
     'GAU': 'Asp', 'GAC': 'Asp', 'GAA': 'Glu', 'GAG': 'Glu',
     'GGU': 'Gly', 'GGC': 'Gly', 'GGA': 'Gly', 'GGG': 'Gly'
 }
-def amino_acid():
-    global coding_region
-    global acid
-    global all_acids
+def counter(m):
+        acid_dict={}
+        for i in m:
+            acid_dict[i]=acid_dict.get(i,0)+1
+        return acid_dict
+
+def max_amino_acid(coding_region):
     all_acids=[]
     if not coding_region:
-        return "No coding region found"
+        return ({},[])
     for i in range(0,len(coding_region)-2,3):
         mRNA1=coding_region[i:i+3]
         mRNA2="".join(mRNA1)
         acids=codon_table[mRNA2]
         all_acids.append(acids)
-    def counter():
-        global all_acids
-        acid_dict={}
-        for i in all_acids:
-            acid_dict[i]=acid_dict.get(i,0)+1
-        return acid_dict
-    acid=counter()
+    acid=counter(all_acids)
     max_count=max(acid.values())
     max_acid=[acid_name for acid_name,count in acid.items() if count==max_count]
-    return max_acid
+    return acid,max_acid
 
 x=find_sequence()
-y=amino_acid()
+y=max_amino_acid(x)
+acid=y[0]
+max=y[1]
 result="".join(x)
 print(f"The mRNA sequence is {result}")
-print(f"Most frequency amino acid is {y}")    
+print(f"Most frequency amino acid is {max}")
+
 
 import matplotlib.pyplot as plt
 x=list(acid.keys())
@@ -84,8 +89,10 @@ plt.title("Amino acid frequencies")
 plt.show()
 
 """
+import matplotlib.pyplot as plt
 u=list(acid.keys())
 v=list(acid.values())
 plt.pie(v,labels=u,autopct="%1.2f%%")
 plt.title("Amino acid frequencies")
-plt.show()"""
+plt.show()
+"""
