@@ -4,7 +4,7 @@ dict={"TypeScript":"38.5%",
       "Python":"51%",
       "HTML":"52.9%",
       "JavaScript":"62.3%",
-       }
+       } 
 x=list(dict.keys())
 y =[float(value.strip('%')) for value in dict.values()]
 plt.bar(x,y)
@@ -15,3 +15,11 @@ plt.xlabel("Application")
 plt.ylabel("Percentage")
 plt.title("Programming language popularity")
 plt.show()
+ #Import `matplotlib.pyplot` as `plt`.  
+ #Create a dictionary of languages and their popularity percentages.  
+ #Extract keys (languages) and convert percentage values to floats.  
+ #Plot a bar chart with `plt.bar()`.  
+ #Set y-axis ticks from 0 to 100 with intervals of 10.  
+ #Add percentage labels above each bar.  
+ #Label x-axis, y-axis, and set the title.  
+ #Display the chart using `plt.show()`.  
