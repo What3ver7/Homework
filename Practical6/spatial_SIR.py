@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+#define the population
+#Randomly choose the initial infected individual's position
 population=np.zeros((100,100))
 outbreak=np.random.choice(range(100),2)
 population[outbreak[0],outbreak[1]]=1
@@ -8,11 +10,15 @@ beta=0.3
 gamma=0.05
 time=100
 
+#draw the initial figure
 plt.figure(figsize=(6,4),dpi=150)
 plt.imshow(population,cmap="viridis",interpolation="nearest")
 plt.title("Initial")
 plt.show()
 
+#loop for 100 times
+#infect the neighboring susceptible individuals
+#let the infected individuals recover 
 for i in range(1,time+1):
     new_population = np.copy(population)
     infect=np.where(population==1)
@@ -26,6 +32,7 @@ for i in range(1,time+1):
         new_recover=np.random.choice(range(1,3),1,p=[1-gamma,gamma])
         new_population[x,y]=new_recover
     population=new_population
+    #draw the figure at 10,50,100 day
     if i in [10,50,100]:
         plt.imshow(population,cmap="viridis",interpolation="nearest")
         plt.title(f"day {i}")
