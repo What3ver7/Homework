@@ -1,18 +1,23 @@
+#Let the user give us the mRNA sequence and make them a list
 sequence=input("Give me mRNA sequence, thanks :) ").upper()
 sequence_list=list(sequence)
 
+#Part1
 def find_sequence():
     global remaining_sequence
     coding_region=[]
     start_code=False
     start_position=-1
+    #Find start code "AUG" first
     for i in range(0,len(sequence_list)-2):
         code=sequence[i:i+3]
         if code=="AUG":
             start_position=i
             start_code=True
             break
-        #Find start code first
+    #cut the mRNA begining with start code
+    #read the code
+    #if it has end code, cut it until end code, and append it to coding_region
     if start_code:
         remaining_sequence=sequence[start_position:]
         j=0
@@ -25,7 +30,9 @@ def find_sequence():
                     coding_region.append(v)
                 break
             j += 3
-        #if it has end code, cut it until end code, and append it
+    #consider if there is no end code 
+    #and has 1 or 2 more useless code at the tail of mRNA
+    #cut it and append the remain
     if len(remaining_sequence) - j == 1 or len(remaining_sequence) - j == 2:
         remaining_sequence = remaining_sequence[:j]
     for v in remaining_sequence:
@@ -33,6 +40,7 @@ def find_sequence():
     #if there is noend code and has 1 or 2 more useless code, cut it and append the remain
     return coding_region
 
+#Part2
 codon_table = {
     'UUU': 'Phe', 'UUC': 'Phe', 'UUA': 'Leu', 'UUG': 'Leu',
     'UCU': 'Ser', 'UCC': 'Ser', 'UCA': 'Ser', 'UCG': 'Ser',
@@ -51,40 +59,48 @@ codon_table = {
     'GAU': 'Asp', 'GAC': 'Asp', 'GAA': 'Glu', 'GAG': 'Glu',
     'GGU': 'Gly', 'GGC': 'Gly', 'GGA': 'Gly', 'GGG': 'Gly'
 }
+# def a counter function to counter the frequency of acid
 def counter(m):
         acid_dict={}
         for i in m:
             acid_dict[i]=acid_dict.get(i,0)+1
         return acid_dict
-# def a counter function to counter the frequency of acid
 
+#define a funtion to find the max fruquent amino acid
 def max_amino_acid(coding_region):
     all_acids=[]
     if not coding_region:
-        return ({},[])
+        return None
     for i in range(0,len(coding_region)-2,3):
+        #translate the mRNA into the amnio acid
         mRNA1=coding_region[i:i+3]
         mRNA2="".join(mRNA1)
         acids=codon_table[mRNA2]
         all_acids.append(acids)
+    #counter the number of all amino acids
     acid=counter(all_acids)
+    #find the max number amino acid
     max_count=max(acid.values())
+    #append the name of the amino acid into a list
+    #if the max have more than 1, append all of them
     max_acid=[acid_name for acid_name,count in acid.items() if count==max_count]
     return acid,max_acid
-#Find the max fruquent amino acid
 
+#Part4
+#define a function to replace the "U" from mRNA into "T" in DNA
 def reverse(b):
     b=b.replace("U","T")
     return b
-
-def calculator():
-    A_count=remaining_sequence.count("A")
-    U_count=remaining_sequence.count("U")
-    C_count=remaining_sequence.count("C")
-    G_count=remaining_sequence.count("G")
-    per=((A_count+U_count)/(C_count+G_count))
+#define a function to calculate the A,U,C,G numbers in the mRNA sequence
+def calculator(sequence):
+    A_count=sequence.count("A")
+    U_count=sequence.count("U")
+    C_count=sequence.count("C")
+    G_count=sequence.count("G")
+    per=((C_count+G_count)/(C_count+G_count+A_count+U_count))
     print(f"The percentage of C and G is {per}")
 
+#The main part
 x=find_sequence()
 y=max_amino_acid(x)
 acid=y[0]
@@ -92,8 +108,9 @@ max=y[1]
 result="".join(x)
 print(f"The mRNA sequence is {result}")
 print(f"Most frequency amino acid is {max}")
-# main part
 
+#Part3
+#Draw
 import matplotlib.pyplot as plt
 x=list(acid.keys())
 y=[int(value) for value in acid.values()]
@@ -104,19 +121,9 @@ for i,value in enumerate(y):
     plt.text(i, value, f"{value}",ha="center", va="bottom")
 plt.title("Amino acid frequencies")
 plt.show()
-#draw a bar 
 
-"""
-import matplotlib.pyplot as plt
-u=list(acid.keys())
-v=list(acid.values())
-plt.pie(v,labels=u,autopct="%1.2f%%")
-plt.title("Amino acid frequencies")
-plt.show()
-#draw a pie
-"""
-
+#additional step,reverse transcription 
 DNA_sequence=reverse(remaining_sequence)
 print(f"The DNA sequence is {DNA_sequence}")
-
-calculator()
+#Then calculate the CG porpotion in the mRNA sequence
+calculator(result)
