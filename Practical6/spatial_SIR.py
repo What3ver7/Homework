@@ -14,6 +14,7 @@ time=100
 plt.figure(figsize=(6,4),dpi=150)
 plt.imshow(population,cmap="viridis",interpolation="nearest")
 plt.title("Initial")
+plt.savefig("day0.png")
 plt.show()
 
 #loop for 100 times
@@ -36,4 +37,21 @@ for i in range(1,time+1):
     if i in [10,50,100]:
         plt.imshow(population,cmap="viridis",interpolation="nearest")
         plt.title(f"day {i}")
+        plt.savefig (f"day{i}.png")
         plt.show()
+
+# Start by creating a 100x100 grid where every spot is empty (0).
+# Pick a random spot and mark it as infected (1).
+# Decide how likely it is for the infection to spread (beta) and for someone to recover (gamma).
+# Set the simulation to run for 100 days.
+# Show the figure at the start with just the one infected spot.
+# For each of the 100 days:
+#    Make a copy of the grid to update.
+#    Look for infected spots (1).
+#    For each infected spot:
+#        For each direction (up, down, left, right):
+#            If there's an open spot next to it:
+#                Sometimes turn it infected (based on beta).
+#        Sometimes turn the infected spot recovered (based on gamma).
+#    Update the grid with the changes.
+#    If it's a special day (10, 50, or 100), draw the figure to show how it looks now.
