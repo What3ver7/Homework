@@ -108,7 +108,7 @@ def calculator(sequence):
         print("It's stable.")
     else:
         print("It's stable, However, it may lead to the overcomplexity of the secondary structure of mRNA, "
-        "which affects the Transcription efficiency")
+        "which affects the transcription efficiency")
 
 #The main part
 x=find_sequence()
@@ -132,7 +132,8 @@ for i,value in enumerate(y):
 plt.title("Amino acid frequencies")
 plt.show()
 
-#Then calculate the CG porpotion in the mRNA sequence
+#reverse transcription the mRNA into DNA
+#Then calculate the CG porpotion in the DNA sequence and judge whether the DNA chain is stable or not.
 DNA=reverse(result)
 print(DNA)
 calculator(DNA)
