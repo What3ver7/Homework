@@ -8,6 +8,7 @@ def find_sequence():
     coding_region=[]
     start_code=False
     start_position=-1
+    end=True
     #Find start code "AUG" first
     for i in range(0,len(sequence_list)-2):
         code=sequence[i:i+3]
@@ -26,6 +27,7 @@ def find_sequence():
                 break
             end_code = remaining_sequence[j:j+3]
             if end_code in ["UAA", "UAG", "UGA"]:
+                end=False
                 for v in remaining_sequence[:j]:
                     coding_region.append(v)
                 break
@@ -33,11 +35,12 @@ def find_sequence():
     #consider if there is no end code 
     #and has 1 or 2 more useless code at the tail of mRNA
     #cut it and append the remain
-    if len(remaining_sequence) - j == 1 or len(remaining_sequence) - j == 2:
-        remaining_sequence = remaining_sequence[:j]
-    for v in remaining_sequence:
-        coding_region.append(v)
-    #if there is noend code and has 1 or 2 more useless code, cut it and append the remain
+    if end:
+        if len(remaining_sequence) - j == 1 or len(remaining_sequence) - j == 2:
+            remaining_sequence = remaining_sequence[:j]
+        for v in remaining_sequence:
+            coding_region.append(v)
+        #if there is noend code and has 1 or 2 more useless code, cut it and append the remain
     return coding_region
 
 #Part2
@@ -87,10 +90,6 @@ def max_amino_acid(coding_region):
     return acid,max_acid
 
 #Part4
-#define a function to replace the "U" from mRNA into "T" in DNA
-def reverse(b):
-    b=b.replace("U","T")
-    return b
 #define a function to calculate the A,U,C,G numbers in the mRNA sequence
 def calculator(sequence):
     A_count=sequence.count("A")
@@ -99,6 +98,13 @@ def calculator(sequence):
     G_count=sequence.count("G")
     per=((C_count+G_count)/(C_count+G_count+A_count+U_count))
     print(f"The percentage of C and G is {per}")
+    if per<=0.3:
+        print("It's not stable, mRNA may be more susceptible to degradation.")
+    elif 0.3<per<0.7:
+        print("It's stable.")
+    else:
+        print("It's stable, However, it may lead to the overcomplexity of the secondary structure of mRNA, "
+        "which affects the translation efficiency")
 
 #The main part
 x=find_sequence()
@@ -122,8 +128,5 @@ for i,value in enumerate(y):
 plt.title("Amino acid frequencies")
 plt.show()
 
-#additional step,reverse transcription 
-DNA_sequence=reverse(remaining_sequence)
-print(f"The DNA sequence is {DNA_sequence}")
 #Then calculate the CG porpotion in the mRNA sequence
 calculator(result)
