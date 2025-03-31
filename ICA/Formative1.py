@@ -1,3 +1,4 @@
+import re
 #Let the user give us the mRNA sequence and make them a list
 sequence=input("Give me mRNA sequence, thanks :) ").upper()
 sequence_list=list(sequence)
@@ -91,20 +92,23 @@ def max_amino_acid(coding_region):
 
 #Part4
 #define a function to calculate the A,U,C,G numbers in the mRNA sequence
+def reverse(z):
+    DNA_sequence=re.sub(r'[AUCG]', lambda m:{'A':'T','U':'A','C':'G','G':'C'}[m.group()], z)
+    return DNA_sequence
 def calculator(sequence):
     A_count=sequence.count("A")
-    U_count=sequence.count("U")
+    T_count=sequence.count("T")
     C_count=sequence.count("C")
     G_count=sequence.count("G")
-    per=((C_count+G_count)/(C_count+G_count+A_count+U_count))
+    per=((C_count+G_count)/(C_count+G_count+A_count+T_count))
     print(f"The percentage of C and G is {per}")
     if per<=0.3:
-        print("It's not stable, mRNA may be more susceptible to degradation.")
+        print("It's not stable, DNA may be more susceptible to degradation.")
     elif 0.3<per<0.7:
         print("It's stable.")
     else:
         print("It's stable, However, it may lead to the overcomplexity of the secondary structure of mRNA, "
-        "which affects the translation efficiency")
+        "which affects the Transcription efficiency")
 
 #The main part
 x=find_sequence()
@@ -129,4 +133,6 @@ plt.title("Amino acid frequencies")
 plt.show()
 
 #Then calculate the CG porpotion in the mRNA sequence
-calculator(result)
+DNA=reverse(result)
+print(DNA)
+calculator(DNA)
